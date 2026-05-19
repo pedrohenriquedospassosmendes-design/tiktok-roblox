@@ -6,16 +6,13 @@ from TikTokLive.events import CommentEvent
 app = Flask(__name__)
 queue = []
 
-client = TikTokLiveClient(unique_id="weverti04")
+client = TikTokLiveClient(unique_id="nandox.ff1")
 
 
 @client.on(CommentEvent)
 async def on_comment(event):
-    username = event.user.unique_id
-    comment = event.comment.strip()
-
-    print("COMMENT:", username, comment)
-    queue.append(comment)
+    print("🔥 CHEGOU COMMENT:", event.comment)
+    queue.append(event.comment)
 
 
 @app.route("/get")
