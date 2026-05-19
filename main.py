@@ -9,26 +9,30 @@ app = Flask(__name__)
 
 queue = []
 
-# TikTok LIVE (coloque seu @ aqui)
-client = TikTokLiveClient(unique_id="@vinyyws")
+client = TikTokLiveClient(unique_id="@weverti04")
 
 
 # =========================
-# TIKTOK EVENTO
+# TIKTOK EM THREAD
 # =========================
-@client.on(CommentEvent)
-async def on_comment(event):
-    username = event.user.unique_id
-    comment = event.comment.strip()
+def start_tiktok():
+    @client.on(CommentEvent)
+    async def on_comment(event):
+        username = event.user.unique_id
+        comment = event.comment.strip()
 
-    print(f"{username}: {comment}")
+        print(f"{username}: {comment}")
 
-    # aqui você decide o que entra no jogo
-    queue.append(comment)
+        queue.append(comment)
+
+    client.run()
+
+
+threading.Thread(target=start_tiktok).start()
 
 
 # =========================
-# API PRO ROBLOX
+# API
 # =========================
 @app.route("/get")
 def get_user():
@@ -38,16 +42,13 @@ def get_user():
     return jsonify({"user": None})
 
 
-# =========================
-# FLASK (RENDER FIX)
-# =========================
-def run_flask():
-    port = int(os.environ.get("PORT", 10000))
-    app.run(host="0.0.0.0", port=port)
+@app.route("/")
+def home():
+    return "OK - TikTok Roblox rodando"
 
 
 # =========================
-# START
+# START FLASK (PRINCIPAL)
 # =========================
-threading.Thread(target=run_flask).start()
-client.run()
+port = int(os.environ.get("PORT", 10000))
+app.run(host="0.0.0.0", port=port)
