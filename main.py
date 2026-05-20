@@ -6,7 +6,7 @@ from TikTokLive.events import CommentEvent
 app = Flask(__name__)
 queue = []
 
-client = TikTokLiveClient(unique_id="weverti04")
+client = TikTokLiveClient(unique_id="phh_0_011")
 
 
 @client.on(CommentEvent)
