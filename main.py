@@ -32,6 +32,12 @@ def home():
 # START TIKTOK (BACKGROUND)
 # =========================
 import threading
+def run_tiktok():
+    try:
+        client.run()
+    except Exception as e:
+        print("❌ Erro TikTok:", e)
+        
 threading.Thread(target=client.run, daemon=True).start()
 
 
