@@ -11,8 +11,11 @@ client = TikTokLiveClient(unique_id="phh_0_011")
 
 @client.on(CommentEvent)
 async def on_comment(event):
-    print("🔥 CHEGOU COMMENT:", event.comment)
-    queue.append(event.comment)
+    roblox_name = event.comment.strip()
+    if " " in roblox_name:
+        return
+    print("🔥 CHEGOU:", roblox_name)
+    queue.append(roblox_name)
 
 
 @app.route("/get")
