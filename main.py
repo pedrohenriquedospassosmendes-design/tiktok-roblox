@@ -7,7 +7,7 @@ from TikTokLive.events import CommentEvent, ConnectEvent, DisconnectEvent
 
 # ✅ WHITELIST — adiciona os nicks do TikTok aqui
 WHITELIST = [
-    "@weverti04",
+    "@phh_0_011",
     # "@nick_do_comprador1",
 ]
 
