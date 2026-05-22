@@ -23,6 +23,7 @@ app = Flask(__name__)
 queue = []
 gift_queue = []
 rose_queue = []
+ultimo_comentario = {}
 
 client = TikTokLiveClient(unique_id=TIKTOK_NICK)
 
@@ -42,18 +43,23 @@ async def on_comment(event):
             return
         print(f"🔥 CHEGOU: {roblox_name}")
         queue.append(roblox_name)
+        ultimo_comentario[event.comment_id] = roblox_name
     except:
         pass
 
 @client.on(GiftEvent)
 async def on_gift(event):
     try:
+        if len(ultimo_comentario) > 0:
+            roblox_nick = list(ultimo_comentario.values())[-1]
+        else:
+            return
         if event.gift.id == 5655:
-            print(f"🍩 DONUT")
-            gift_queue.append("donut")
+            print(f"🍩 DONUT: {roblox_nick}")
+            gift_queue.append(roblox_nick)
         elif event.gift.id == 5263:
-            print(f"🌹 ROSA")
-            rose_queue.insert(0, "rosa")
+            print(f"🌹 ROSA: {roblox_nick}")
+            rose_queue.insert(0, roblox_nick)
     except:
         pass
 
