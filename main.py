@@ -43,16 +43,15 @@ async def on_comment(event):
             return
         print(f"🔥 CHEGOU: {roblox_name}")
         queue.append(roblox_name)
-        ultimo_comentario[event.comment_id] = roblox_name
+        ultimo_comentario["ultimo"] = roblox_name
     except:
         pass
 
 @client.on(GiftEvent)
 async def on_gift(event):
     try:
-        if len(ultimo_comentario) > 0:
-            roblox_nick = list(ultimo_comentario.values())[-1]
-        else:
+        roblox_nick = ultimo_comentario.get("ultimo")
+        if not roblox_nick:
             return
         if event.gift.id == 5655:
             print(f"🍩 DONUT: {roblox_nick}")
