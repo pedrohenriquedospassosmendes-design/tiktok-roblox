@@ -2,6 +2,8 @@ from flask import Flask, jsonify
 import os
 import threading
 import sys
+import traceback
+import time
 from TikTokLive import TikTokLiveClient
 from TikTokLive.events import CommentEvent, ConnectEvent, DisconnectEvent, GiftEvent
 
@@ -99,14 +101,9 @@ def test_rose(username):
     return jsonify({"status": "ok", "user": username})
 
 def run_tiktok():
-    try:
-        client.run()
-    except Exception as e:
-        print(f"❌ Erro TikTok: {e}")
-        import traceback
-        traceback.print_exc()
-
-threading.Thread(target=run_tiktok, daemon=True).start()
-
-port = int(os.environ.get("PORT", 10000))
-app.run(host="0.0.0.0", port=port)
+    while True:
+        try:
+            print("🔄 Tentando conectar no TikTok...")
+            client.run()
+        except Exception as e:
+            print(
