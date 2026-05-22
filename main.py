@@ -35,29 +35,37 @@ async def on_disconnect(event):
 
 @client.on(CommentEvent)
 async def on_comment(event):
-    roblox_name = event.comment.strip()
-    if " " in roblox_name:
-        return
-    ultimo_comentario[event.user.uniqueId] = roblox_name
-    print(f"🔥 CHEGOU: {roblox_name}")
-    queue.append(roblox_name)
+    try:
+        roblox_name = event.comment.strip()
+        if " " in roblox_name:
+            return
+        user_id = event.user_info.uid
+        ultimo_comentario[user_id] = roblox_name
+        print(f"🔥 CHEGOU: {roblox_name}")
+        queue.append(roblox_name)
+    except Exception as e:
+        print(f"❌ Erro comment: {e}")
 
 @client.on(GiftEvent)
 async def on_gift(event):
-    if event.gift.id == 5655:
-        roblox_nick = ultimo_comentario.get(event.user.uniqueId)
-        if roblox_nick:
-            print(f"🍩 DONUT: {roblox_nick}")
-            gift_queue.append(roblox_nick)
-        else:
-            print(f"🍩 DONUT mas sem nick comentado: {event.user.uniqueId}")
-    elif event.gift.id == 5263:
-        roblox_nick = ultimo_comentario.get(event.user.uniqueId)
-        if roblox_nick:
-            print(f"🌹 ROSA - PRIORIDADE: {roblox_nick}")
-            rose_queue.insert(0, roblox_nick)
-        else:
-            print(f"🌹 ROSA mas sem nick comentado: {event.user.uniqueId}")
+    try:
+        user_id = event.user_info.uid
+        if event.gift.id == 5655:
+            roblox_nick = ultimo_comentario.get(user_id)
+            if roblox_nick:
+                print(f"🍩 DONUT: {roblox_nick}")
+                gift_queue.append(roblox_nick)
+            else:
+                print(f"🍩 DONUT mas sem nick comentado")
+        elif event.gift.id == 5263:
+            roblox_nick = ultimo_comentario.get(user_id)
+            if roblox_nick:
+                print(f"🌹 ROSA: {roblox_nick}")
+                rose_queue.insert(0, roblox_nick)
+            else:
+                print(f"🌹 ROSA mas sem nick comentado")
+    except Exception as e:
+        print(f"❌ Erro gift: {e}")
 
 @app.route("/get")
 def get_user():
@@ -95,6 +103,8 @@ def run_tiktok():
         client.run()
     except Exception as e:
         print(f"❌ Erro TikTok: {e}")
+        import traceback
+        traceback.print_exc()
 
 threading.Thread(target=run_tiktok, daemon=True).start()
 
