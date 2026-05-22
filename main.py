@@ -53,12 +53,12 @@ async def on_gift(event):
         roblox_nick = ultimo_comentario.get("ultimo")
         if not roblox_nick:
             return
-        if event.gift.id == 5655:
-            print(f"🍩 DONUT: {roblox_nick}")
-            gift_queue.append(roblox_nick)
-        elif event.gift.id == 5263:
+        if event.gift.id == 5263:  # rosa = prioridade na fila
             print(f"🌹 ROSA: {roblox_nick}")
             rose_queue.insert(0, roblox_nick)
+        elif event.gift.id == 5655:  # rosquinha = gigante
+            print(f"🍩 DONUT: {roblox_nick}")
+            gift_queue.append(roblox_nick)
     except:
         pass
 
