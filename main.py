@@ -23,7 +23,6 @@ app = Flask(__name__)
 queue = []
 gift_queue = []
 rose_queue = []
-ultimo_comentario = {}
 
 client = TikTokLiveClient(unique_id=TIKTOK_NICK)
 
@@ -43,8 +42,8 @@ async def on_comment(event):
             return
         print(f"🔥 CHEGOU: {roblox_name}")
         queue.append(roblox_name)
-    except Exception as e:
-        print(f"❌ Erro comment: {e}")
+    except:
+        pass
 
 @client.on(GiftEvent)
 async def on_gift(event):
@@ -55,8 +54,8 @@ async def on_gift(event):
         elif event.gift.id == 5263:
             print(f"🌹 ROSA")
             rose_queue.insert(0, "rosa")
-    except Exception as e:
-        print(f"❌ Erro gift: {e}")
+    except:
+        pass
 
 @app.route("/get")
 def get_user():
@@ -93,7 +92,7 @@ def run_tiktok():
     while True:
         try:
             print("🔄 Tentando conectar no TikTok...")
-            client.run(session_id="ec5bf5fddb6f6613c0e2ae6d470f058d")
+            client.run()
         except Exception as e:
             print(f"❌ Erro TikTok: {type(e).__name__}: {e}")
             traceback.print_exc()
