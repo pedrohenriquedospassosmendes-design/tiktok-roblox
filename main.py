@@ -106,4 +106,12 @@ def run_tiktok():
             print("🔄 Tentando conectar no TikTok...")
             client.run()
         except Exception as e:
-            print(
+            print(f"❌ Erro TikTok: {type(e).__name__}: {e}")
+            traceback.print_exc()
+            print("🔄 Reconectando em 10 segundos...")
+            time.sleep(10)
+
+threading.Thread(target=run_tiktok, daemon=True).start()
+
+port = int(os.environ.get("PORT", 10000))
+app.run(host="0.0.0.0", port=port)
