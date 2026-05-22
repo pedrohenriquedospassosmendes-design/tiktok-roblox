@@ -25,10 +25,7 @@ gift_queue = []
 rose_queue = []
 ultimo_comentario = {}
 
-client = TikTokLiveClient(
-    unique_id=TIKTOK_NICK,
-    timeout=10.0
-)
+client = TikTokLiveClient(unique_id=TIKTOK_NICK)
 
 @client.on(ConnectEvent)
 async def on_connect(event):
