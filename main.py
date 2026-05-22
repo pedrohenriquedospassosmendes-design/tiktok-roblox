@@ -25,10 +25,7 @@ gift_queue = []
 rose_queue = []
 ultimo_comentario = {}
 
-client = TikTokLiveClient(
-    unique_id=TIKTOK_NICK,
-    session_id="ec5bf5fddb6f6613c0e2ae6d470f058d"
-)
+client = TikTokLiveClient(unique_id=TIKTOK_NICK)
 
 @client.on(ConnectEvent)
 async def on_connect(event):
@@ -44,8 +41,6 @@ async def on_comment(event):
         roblox_name = event.comment.strip()
         if " " in roblox_name:
             return
-        user_id = event.user_info.uid
-        ultimo_comentario[user_id] = roblox_name
         print(f"🔥 CHEGOU: {roblox_name}")
         queue.append(roblox_name)
     except Exception as e:
@@ -54,21 +49,12 @@ async def on_comment(event):
 @client.on(GiftEvent)
 async def on_gift(event):
     try:
-        user_id = event.user_info.uid
         if event.gift.id == 5655:
-            roblox_nick = ultimo_comentario.get(user_id)
-            if roblox_nick:
-                print(f"🍩 DONUT: {roblox_nick}")
-                gift_queue.append(roblox_nick)
-            else:
-                print(f"🍩 DONUT mas sem nick comentado")
+            print(f"🍩 DONUT")
+            gift_queue.append("donut")
         elif event.gift.id == 5263:
-            roblox_nick = ultimo_comentario.get(user_id)
-            if roblox_nick:
-                print(f"🌹 ROSA: {roblox_nick}")
-                rose_queue.insert(0, roblox_nick)
-            else:
-                print(f"🌹 ROSA mas sem nick comentado")
+            print(f"🌹 ROSA")
+            rose_queue.insert(0, "rosa")
     except Exception as e:
         print(f"❌ Erro gift: {e}")
 
@@ -107,7 +93,7 @@ def run_tiktok():
     while True:
         try:
             print("🔄 Tentando conectar no TikTok...")
-            client.run()
+            client.run(session_id="ec5bf5fddb6f6613c0e2ae6d470f058d")
         except Exception as e:
             print(f"❌ Erro TikTok: {type(e).__name__}: {e}")
             traceback.print_exc()
