@@ -38,26 +38,26 @@ async def on_comment(event):
     roblox_name = event.comment.strip()
     if " " in roblox_name:
         return
-    ultimo_comentario[event.user.unique_id] = roblox_name
+    ultimo_comentario[event.user.uniqueId] = roblox_name
     print(f"🔥 CHEGOU: {roblox_name}")
     queue.append(roblox_name)
 
 @client.on(GiftEvent)
 async def on_gift(event):
     if event.gift.id == 5655:
-        roblox_nick = ultimo_comentario.get(event.user.unique_id)
+        roblox_nick = ultimo_comentario.get(event.user.uniqueId)
         if roblox_nick:
             print(f"🍩 DONUT: {roblox_nick}")
             gift_queue.append(roblox_nick)
         else:
-            print(f"🍩 DONUT mas sem nick comentado: {event.user.unique_id}")
+            print(f"🍩 DONUT mas sem nick comentado: {event.user.uniqueId}")
     elif event.gift.id == 5263:
-        roblox_nick = ultimo_comentario.get(event.user.unique_id)
+        roblox_nick = ultimo_comentario.get(event.user.uniqueId)
         if roblox_nick:
             print(f"🌹 ROSA - PRIORIDADE: {roblox_nick}")
             rose_queue.insert(0, roblox_nick)
         else:
-            print(f"🌹 ROSA mas sem nick comentado: {event.user.unique_id}")
+            print(f"🌹 ROSA mas sem nick comentado: {event.user.uniqueId}")
 
 @app.route("/get")
 def get_user():
