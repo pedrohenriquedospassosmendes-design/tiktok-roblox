@@ -1,2 +1,2 @@
-TikTokLive
-flask
+TikTokLive==5.4.3
+flask==3.0.3
