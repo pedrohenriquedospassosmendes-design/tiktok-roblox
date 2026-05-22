@@ -1,2 +1,2 @@
-TikTokLive==6.5.3
+TikTokLive==6.6.5
 flask==3.0.3
