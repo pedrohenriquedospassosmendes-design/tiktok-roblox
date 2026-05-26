@@ -8,10 +8,10 @@ from TikTokLive import TikTokLiveClient
 from TikTokLive.events import CommentEvent, ConnectEvent, DisconnectEvent, GiftEvent
 
 WHITELIST = [
-    "@phh_0_011",
+    "@weverti04",
 ]
 
-TIKTOK_NICK = sys.argv[1] if len(sys.argv) > 1 else "@phh_0_011"
+TIKTOK_NICK = sys.argv[1] if len(sys.argv) > 1 else "@weverti04"
 
 if TIKTOK_NICK not in WHITELIST:
     print(f"❌ {TIKTOK_NICK} não está na whitelist!")
